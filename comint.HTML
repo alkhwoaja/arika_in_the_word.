@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <audio controls>
+        <source src="Comment.m4a">
+    </audio> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> your comment</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styal1.css">
+</head>
+<body>
+    <div class="sidebar">
+    
+    <h1> رايكم بموقعنا </h1>
+    <h2>تقيمكم بنجوم </h2>
+    <div id="rating">
+        <div class="stars">
+            <span class="star" data-rating="1">&#9733;</span>
+            <span class="star" data-rating="2">&#9733;</span>
+            <span class="star" data-rating="3">&#9733;</span>
+            <span class="star" data-rating="4">&#9733;</span>
+            <span class="star" data-rating="5">&#9733;</span>
+        </div>
+        <p id="rating-value">0/5</p>
+    </div>
+    
+    <div id="comments">
+        <h2> رايكم خلال التعليق </h2>
+        <textarea id="comment-box" placeholder="تعليقاتكم لموقعنا "></textarea>
+        <button >أضف تعليق</button>
+        <ul id="comment-list"></ul>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const ratingValue = document.getElementById('rating-value');
+        const commentBox = document.getElementById('comment-box');
+        const commentButton = document.getElementById('comment-button');
+        const commentList = document.getElementById('comment-list');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = parseInt(star.getAttribute('data-rating'));
+                ratingValue.textContent = rating + '/5';
+                stars.forEach(innerStar => {
+                    if (parseInt(innerStar.getAttribute('data-rating')) <= rating) {
+                        innerStar.classList.add('rated');
+                    } else {
+                        innerStar.classList.remove('rated');
+                    }
+                });
+            });
+        });
+
+        commentButton.addEventListener('click', () => {
+            const comment = commentBox.value;
+            if (comment.trim() !== '') {
+                const li = document.createElement('li');
+                li.textContent = comment;
+                commentList.appendChild(li);
+                commentBox.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
